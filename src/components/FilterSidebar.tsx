@@ -31,7 +31,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange }
     useEffect(() => {
         const fetchCategories = async () => {
             const categories = await getCategories();
-            console.log(JSON.stringify(categories));
             setCategoriesList(categories.data);
         };
         fetchCategories();

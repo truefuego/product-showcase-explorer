@@ -56,3 +56,10 @@ export interface ICategoryProps {
     name: string;
     url: string;
 }
+
+export interface IProductResponseData { 
+    data: ProductData;
+    status: number;
+    statusText?: string;
+    errorMsg?: string;
+}

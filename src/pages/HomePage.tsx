@@ -7,9 +7,11 @@ import ProductGrid from '../components/ProductGrid';
 import Pagination from '../components/Pagination';
 import type { FilterState } from '../components/types';
 import FilterSidebar from '../components/FilterSidebar';
+import { useHttpMethodContext } from '../context/httpContext';
+import SkeletonProductCard from '../components/SkeletonProductCard';
 
 const HomePage:React.FC = () => {
-
+    const { showApiLoader } = useHttpMethodContext();
     const { getPaginatedProducts, getPaginatedProductsByCategory } = useProductsApi();
 
     const [productsListData, setProductListData] = useState<ProductData[]>([]);
@@ -97,7 +99,17 @@ const HomePage:React.FC = () => {
                     <FilterSidebar filters={filters} onFilterChange={handleFilterChange} />
                     
                     <div className="flex-1">
-                        <ProductGrid products={productsListData} />
+                        {showApiLoader ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {Array.from({ length: filters.itemsPerPage }).map((_, idx) => (
+                                    <React.Fragment key={idx}>
+                                        <SkeletonProductCard />
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                        ) : (
+                            <ProductGrid products={productsListData} />
+                        )}
                         
                         {totalPages > 1 && (
                             <Pagination 

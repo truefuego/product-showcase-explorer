@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useHttpMethodContext } from "../context/httpContext";
 import type { ApiResponseData } from "../interface/ApiResponseData";
-import type { ICategoriesData, ProductListData } from "../interface/ProductsData";
+import type { ICategoriesData, IProductResponseData, ProductListData } from "../interface/ProductsData";
 import { camelCaseSpaceToHyphen } from "../utils/utils";
 
 const useProductsApi = () => {
@@ -52,11 +52,23 @@ const useProductsApi = () => {
         [get]
     );
 
+    const getProductById = useCallback( 
+        async<T>(
+            id: number,
+            showApiLoader= true
+        ): Promise<IProductResponseData> => {
+            const res: ApiResponseData<T>  = await get(`/${id}`, showApiLoader);
+            return res.data as IProductResponseData;
+        },
+        [get]
+    );
+
     return {
         getAllProducts,
         getPaginatedProducts,
         getPaginatedProductsByCategory,
         getCategories,
+        getProductById
     };
 }
 
