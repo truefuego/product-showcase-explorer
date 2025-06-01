@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import './App.css'
 import Lenis from 'lenis';
+import { HttpMethodContextProvider } from './context/httpContext';
+import AppRoutes from './routes/AppRoutes';
 
 const App:React.FC = () => {
 
@@ -14,9 +16,9 @@ const App:React.FC = () => {
   }, []);
 
   return (
-    <div className='bg-amber-400'>
-      <p className='text-3xl text-blue-700 font-medium'>こんにちは ! Welcome to my site.</p>
-    </div>
+    <HttpMethodContextProvider>
+      <AppRoutes />
+    </HttpMethodContextProvider>
   )
 }
 
