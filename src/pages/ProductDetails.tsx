@@ -40,7 +40,7 @@ const ProductDetails:React.FC = () => {
 
   return (
     <ScreenWrapper>
-      <div className="container mx-auto px-8 py-4 flex gap-12">
+      <div className="container mx-auto px-8 py-4 flex flex-col lg:flex-row gap-12">
           {product.images !== undefined && <ProductImageCarousel images={product.images} />}
         
         <div>
@@ -60,7 +60,7 @@ const ProductDetails:React.FC = () => {
           </div>
           
           <motion.p 
-            className="text-gray-900 font-medium text-lg mb-6 md:w-[600px] w-[350%]"
+            className="text-gray-900 font-medium text-lg mb-6 md:max-w-[600px] mx-w-[350px]"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}

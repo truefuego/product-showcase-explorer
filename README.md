@@ -1,3 +1,42 @@
+## Getting Started
+
+To set up and run the project locally:
+
+1. **Clone the repository:**
+  ```bash
+  git clone https://github.com/your-username/product-showcase-explorer.git
+  cd product-showcase-explorer
+  ```
+
+2. **Install dependencies:**
+  ```bash
+  npm install
+  # or
+  yarn install
+  ```
+
+3. **Start the development server:**
+  ```bash
+  npm run dev
+  # or
+  yarn dev
+  ```
+
+4. Open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
+
+## Design Choices & Trade-offs
+
+- **Component Structure:** The app uses a modular component structure for maintainability and scalability.
+- **Animation Libraries:** Chose Framer Motion for smooth, performant animations, balancing ease of use with flexibility.
+
+## Third-party Libraries Used
+
+- **react-router-dom:** For client-side routing and navigation.
+- **axios:** For simplified HTTP requests.
+- **lucide-react:** For a wide range of SVG icons.
+
+These libraries were chosen for their popularity, community support, and ability to solve specific problems efficiently.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
