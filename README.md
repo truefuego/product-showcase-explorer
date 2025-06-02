@@ -24,6 +24,8 @@ To set up and run the project locally:
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
 
+## Deplaoyed Site: https://product-showcase-explorer.onrender.com
+
 ## Design Choices & Trade-offs
 
 - **Component Structure:** The app uses a modular component structure for maintainability and scalability.
