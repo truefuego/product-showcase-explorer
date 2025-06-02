@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import ProductImageCarousel from '../components/ProductImageCarousel';
 import useProductsApi from '../api/useProductsApi';
 import type { ProductData } from '../interface/ProductsData';
-import { Star } from '../assets/icons';
 import ProductReviews from '../components/ProductReviews';
 
 
@@ -55,7 +54,7 @@ const ProductDetails:React.FC = () => {
           
           <div className="flex items-center mb-4">
             <span className="text-medium font-bold text-gray-700 mr-1">{product.rating}</span>
-            <Star />
+            <svg className="w-4 h-4 text-black fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568L24 9.167l-6.084 5.909L19.336 24l-6.336-3.333L6.664 24l1.42-8.924L2 9.167l8.332-1.012L12 .587z"/></svg>
             <span className="text-sm text-gray-600 ml-4">({product?.reviews?.length} reviews)</span>
           </div>
           
