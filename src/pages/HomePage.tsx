@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import useProductsApi from '../api/useProductsApi';
 import type { ProductData } from '../interface/ProductsData';
 import ScreenWrapper from '../components/ScreenWrapper';
-import { motion } from 'framer-motion';
 import ProductGrid from '../components/ProductGrid';
 import Pagination from '../components/Pagination';
 import type { FilterState } from '../components/types';
@@ -31,7 +30,7 @@ const HomePage:React.FC = () => {
             const response = await getPaginatedProducts(skip, limit);
             setTotal(response.data.total);
             setProductListData(response.data.products);
-        }; 
+        };
         const fetchCategoryProducts = async () => {
             const skip = (currentPage - 1) * filters.itemsPerPage;
             const limit = filters.itemsPerPage;
@@ -39,62 +38,84 @@ const HomePage:React.FC = () => {
             setTotal(response.data.total);
             setProductListData(response.data.products);
         }
-        if (filters.category !== '') {
+        const fetchAndSortAllProducts = async () => {
+            let allProducts: ProductData[] = [];
+            let totalProducts = 0;
+
+            if (filters.category) {
+                const response = await getPaginatedProductsByCategory(0, 1000, filters.category);
+                    allProducts = [...response.data.products];
+                    totalProducts = response.data.total;
+            } else {
+                const response = await getPaginatedProducts(0, 1000);
+                allProducts = [...response.data.products];
+                totalProducts = response.data.total;
+            }
+
+            setTotal(totalProducts);
+
+            if (filters.sort) {
+                switch (filters.sort) {
+                    case 'price-low-high':
+                        allProducts.sort((a, b) => a.price - b.price);
+                        break;
+                    case 'price-high-low':
+                        allProducts.sort((a, b) => b.price - a.price);
+                        break;
+                    case 'a-z':
+                        allProducts.sort((a, b) => a.title.localeCompare(b.title));
+                        break;
+                    case 'z-a':
+                        allProducts.sort((a, b) => b.title.localeCompare(a.title));
+                        break;
+                }
+            }
+
+            const skip = (currentPage - 1) * filters.itemsPerPage;
+            const paginatedProducts = allProducts.slice(skip, skip + filters.itemsPerPage);
+            setProductListData(paginatedProducts);
+        };
+
+        if (filters.sort) {
+            fetchAndSortAllProducts();
+        } else if (filters.category !== '') {
             fetchCategoryProducts();
         } else {
             fetchProductsData();
         }
-    }, [getPaginatedProducts, getPaginatedProductsByCategory, currentPage, filters.itemsPerPage, filters.category]);
+
+        if (currentPage > 1 && currentPage > Math.ceil(total / filters.itemsPerPage)) {
+            setCurrentPage(1);
+        }
+    }, [
+        getPaginatedProducts,
+        getPaginatedProductsByCategory,
+        currentPage,
+        filters.itemsPerPage,
+        filters.category,
+        total,
+        filters.sort
+    ]);
 
 
     useEffect(() => {
-        setCurrentPage(1); // Reset to first page when filters change
+        setCurrentPage(1);
     }
     , [filters.category]);
 
-    // Apply filters and sorting
-    // useEffect(() => {
-    //     let result = [...productsListData];
-        
-    //     // Apply sorting
-    //     if (filters.sort) {
-    //         switch (filters.sort) {
-    //             case 'price-low-high':
-    //                 result.sort((a, b) => a.price - b.price);
-    //                 break;
-    //             case 'price-high-low':
-    //                 result.sort((a, b) => b.price - a.price);
-    //                 break;
-    //             case 'a-z':
-    //                 result.sort((a, b) => a.title.localeCompare(b.title));
-    //                 break;
-    //             case 'z-a':
-    //                 result.sort((a, b) => b.title.localeCompare(a.title));
-    //                 break;
-    //         }
-    //     }
-        
-    // }, [filters, productsListData]);
+    useEffect(() => {
+
+    }, [filters.sort, productsListData]);
     
     const handleFilterChange = (newFilters: Partial<FilterState>) => {
         setFilters(prev => ({ ...prev, ...newFilters }));
     };
-    
-    // Pagination logic
+
     const totalPages = Math.ceil(total / filters.itemsPerPage);
 
     return (
         <ScreenWrapper>
             <main className='max-w-7xl px-4 py-8'>
-                <motion.h2 
-                    className="text-3xl font-bold text-gray-800 mb-8 text-center"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    >
-                    Shop Premium Beauty Products
-                </motion.h2>
-                
                 <div className="flex flex-col md:flex-row gap-8">
                     <FilterSidebar filters={filters} onFilterChange={handleFilterChange} />
                     

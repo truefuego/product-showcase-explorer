@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         navigate(path)
     };
 
-    return (
+  return (
         <motion.div 
             className="rounded-lg overflow-hidden cursor-pointer"
             initial={{ opacity: 0, y: 20 }}

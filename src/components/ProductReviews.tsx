@@ -24,14 +24,14 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
         <span className='text-3xl font-bold'>Reviews</span>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         
-        <div className="col-span-1 bg-white px-6 py-2 rounded-2xl shadow-md flex flex-col h-fit">
-          <div className="text-center md:text-left flex items-end justify-between">
+        <div className="col-span-1 bg-white px-6 py-2 rounded-2xl shadow-md flex flex-col h-fit items-center pb-6">
+          <div className="text-center md:text-left flex items-end justify-between gap-8">
             <div className="mt-2">
-            <h3 className="text-3xl font-bold text-gray-900">{product.rating.toFixed(1)}</h3>
+                <h3 className="text-3xl font-bold text-gray-900">{product.rating.toFixed(1)}</h3>
                 <RatingStars rating={product.rating} size="lg" showCount={false} />
             </div>
             <div>
-                <p className="mt-1 text-xl text-gray-500">{product.reviews.length}</p>
+                <p className="mt-1 text-xl text-gray-800 font-semibold">{product.reviews.length}</p>
                 <p className="mt-1 text-sm text-gray-500">Total reviews</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
             {product.reviews.map((review, index) => (
               <motion.div 
                 key={index}
-                className="border-b border-gray-200 pb-6 last:border-b-0"
+                className="border-b border-gray-200 p-6 py-4 rounded-2xl shadow last:border-b-0 bg-white "
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 * index }}
