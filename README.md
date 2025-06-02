@@ -30,6 +30,7 @@ To set up and run the project locally:
 
 - **Component Structure:** The app uses a modular component structure for maintainability and scalability.
 - **Animation Libraries:** Chose Framer Motion for smooth, performant animations, balancing ease of use with flexibility.
+- **Figma File:** https://www.figma.com/design/51Y1cA7YCFDG0RNoTrhWWx/Untitled?node-id=1-4&t=dI3snH6oDSE8Z9KQ-0
 
 ## Third-party Libraries Used
 
